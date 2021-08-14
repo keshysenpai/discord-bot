@@ -1,6 +1,14 @@
 const fs = require('fs');
 const { Client, Collection, Intents } = require('discord.js');
 const { token } = require('./config.json');
+const guildId = '875982093916717086'
+const getApp = (guildId) => {
+	const app = client.api.applications(client.user.id)
+ if (guildId){
+	 app.guilds(guildId)
+ }
+ return app
+}
 
 const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
 client.commands = new Collection();
@@ -12,9 +20,18 @@ for (const file of commandFiles) {
 	client.commands.set(command.data.name, command);
 }
 
-client.once('ready', () => {
-	console.log('Ready!');
-});
+client.on('ready', async () => {
+	console.log.('hippety hoppety the bot is gavins property.')
+
+	const commands = await getApp(guildId).commands.get()
+  console.log(commands)
+	await getApp(guildId).commands.post({
+		data: {
+			name: 'ping'
+			description: 'Replies with Pong!'
+		}
+	})
+})
 
 client.on('interactionCreate', async interaction => {
 	if (!interaction.isCommand()) return;
