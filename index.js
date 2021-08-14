@@ -14,13 +14,6 @@ for (const file of commandFiles) {
 
 client.once('ready', () => {
 	console.log('Ready!');
-
-	client.api.applications(client.user.id).guilds('875982093916717086').commands.post({
-		data:  {
-			name: "hello",
-			decription: "say helo child"
-		}
-	});
 });
 
 client.on('interactionCreate', async interaction => {
