@@ -16,6 +16,10 @@ client.once('ready', () => {
 	console.log('Ready!');
 });
 
+client.on('interactionCreate', interaction => {
+	console.log(`${interaction.user.tag} in #${interaction.channel.name} triggered an interaction.`);
+});
+
 client.on('interactionCreate', async interaction => {
 	if (!interaction.isCommand()) return;
 	const { commandName } = interaction;
